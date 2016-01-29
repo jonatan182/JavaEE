@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <!--La biblioteca <h: > contiene equivalentes del HTML, ya sea formularios, botones, cajas de texto,
+imágenes,-->
+    <!--xmlns:h es una definicion de namespace que nos permite utilizar la libreria componente de jsf de nombre h dentro de nuestro archivo.
+    Gracias a la definicion de ese namespace ya podemos utilizar tags especificos de jsf como "<h:head> <h:form>etc"-->
+    <h:head>
+        <!--Cómo redirigir a la página índice si tiempo de la sesión indicado en el web.xml se ha cumplido-->
+        <!--Hay dos maneras que se puede combinar, la primera fue encapsular el error y redireccionar a una pagina que lo indicamos en el web.xml
+        y la segunda manera es esta "<meta>", que sirve para ridereccionar automaticamente a una pagina cuando el tiempo de la session de inactivida haya caducado-->
+        <meta http-equiv="refresh" content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/faces/actualizar.xhtml"/>
+        <title>Facelet Title</title> 
+    </h:head>
+    <h:body><f:view>
+
+zz
+            <h:form>
+                <h1><h:outputText value="List Con Wizard JSF"/></h1>
+                <h:dataTable value="${alumnoBean.modeloAlumno}" var="item" border="2">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Codigo"/>
+                        </f:facet>
+                        <h:outputText value="#{item.codigo}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Apellidos"/>
+                        </f:facet>
+                        <h:outputText value="#{item.apellidos}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Direccion"/>
+                        </f:facet>
+                        <h:outputText value="#{item.direccion}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Telefono"/>
+                        </f:facet>
+                        <h:outputText value="#{item.telefono}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="FechaNacimiento"/>
+                        </f:facet>
+                        <h:outputText value="#{item.fechaNacimiento}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="NombrePadre"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombrePadre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="NombreMadre"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombreMadre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="DatosBancarios"/>
+                        </f:facet>
+                        <h:outputText value="#{item.datosBancarios}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Edad"/>
+                        </f:facet>
+                        <h:outputText value="#{item.edad}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Grupo"/>
+                        </f:facet>
+                        <h:outputText value="#{item.grupo.curso.numero}#{item.grupo.letra}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </f:view>
+
+        <h1>Alumnos</h1>
+        <h:form>
+             <h:dataTable var="a" value="${alumnoBean.modeloAlumno}" border="1">
+            <h:column>
+                <f:facet name="header">codigo</f:facet>
+                ${a.codigo}
+            </h:column>
+            <h:column>
+                <f:facet name="header">nombre</f:facet>
+                ${a.nombre}
+            </h:column>
+            <h:column>
+                <f:facet name="header">apellido</f:facet>
+                ${a.apellidos}
+            </h:column>
+            <h:column>
+                <f:facet name="header">grupo</f:facet>
+                ${a.grupo.curso.numero}${a.grupo.letra}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Opciones</f:facet>
+                <h:commandLink action="actualizar.xhtml" actionListener="${alumnoBean.buscar}" value="actualizar">
+                    <f:attribute name="mid" value="${a.codigo}"/>
+                </h:commandLink>
+            </h:column>
+        </h:dataTable>
+        </h:form>
+    </h:body>
+</html>
+

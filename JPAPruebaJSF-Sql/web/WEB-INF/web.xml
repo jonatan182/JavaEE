@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name><!-- para especificar una pista para la implementación JSF con respecto al papel del despliegue actual, podría proporcionar más detallados diagnósticos desarrollo a tiempo de lo que sería práctico para un entorno de producción. Hacer esto permite a los mejores mensajes de error, incluso en el lado del cliente JavaScript, a costa de algo de rendimiento.-->
+        <param-value>Development</param-value><!--añade informacion adicional de depuracion para facilitar el desarrollo-->
+    </context-param>
+    <!--mapeo del facesServlet-->
+    <servlet><!--
+Debe especificar en web.xml que un "FacesServlet" es responsable de manejar aplicaciones JSF. "FacesServlet" es el controlador central para la aplicación JSF. "FacesServlet" recibe todas las peticiones de la aplicación JSF e inicializa los componentes JSF antes de que aparezca la JSP.-->
+        <!--Aquí está la parte interesante: cada vez que el usuario hace algo, como hacer clic en un botón o enviar un formulario, 
+        se produce un evento. Notificación de eventos se envía entonces a través de HTTP al servidor. 
+        En el servidor es un contenedor web que emplea un servlet especial llamado el servlet faces. 
+        El servlet Faces, representada por la clase javax.faces.webapp.FacesServlet, es el motor de todas las aplicaciones JSF.
+        Cada aplicación JSF en el mismo contenedor web tiene su propio Faces servlet. Otro objetivo importante es javax.faces.context.FacesContext, que encapsula toda la información necesaria relacionada con la solicitud actual.-->
+        <servlet-name>Faces Servlet</servlet-name><!--Indicamos como se llamara el servlet, es decir a como hacemos referencia a ese servlet dentro de este documento-->
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class><!--indicamos en donde esta ese servlet-->
+        <load-on-startup>1</load-on-startup><!--para asegurarse de que el servlet se carga cuando primero se inicia la aplicación, podemos tener mas servlets,
+a cada uno se le puede aplicar otro valor "1,2,3"  Pero, servlet1 se carga por primera vez luego servlet2. dependiendo el numero-->
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name><!--indicamos el nombre del servlet que colocamos anteriormente-->
+        <url-pattern>/faces/*</url-pattern><!--url, estamos indicando que vamos a acceder al servlet encuesta a traves de la url "EN"-->
+    </servlet-mapping>
+    <!--tiempo de caducidad de la sesión, establece 30 minutos como tiempo máximo de inactividad, es decir cuando la pagina no se manipula por 30 minutos la session se cierra-->
+    <session-config>
+        <session-timeout>
+            1<!--Indicamo que si no hay interactividad con la pagina en 1 minuto la session finalizara o caducata-->
+        </session-timeout>
+    </session-config>
+    <error-page><!--Cuando La Session A caducado es decir cuando no se ha manipulado por los 30 minutos o el tiempo indicado en <session-timeout>, y luego intentamos manipularla saldra un error por que la session se a finalizado, a si que para que no muestre ese error lo encapsulamos aca <-->
+        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <location>/faces/actualizar.xhtml</location><!--Nos direccionara a index.xhtml cuando se presente un error de que la session a expirado-->
+    </error-page>
+    
+    <welcome-file-list><!--contiene el nombre del primer fichero que debe tratar de servirse cuando se acceda a la aplicación. Aunque en realidad es una lista de ficheros, si no existe el primero se intenta con el segundo y así sucesivamente.-->
+        <welcome-file>faces/index.xhtml</welcome-file>
+    </welcome-file-list>
+</web-app>
+
+
