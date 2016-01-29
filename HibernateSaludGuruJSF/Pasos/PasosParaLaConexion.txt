@@ -1,0 +1,26 @@
+1.descargar el driver
+2.dirigirnos a java, a la pestaña de servers
+3.dirigirnos al apartado databases
+4.dirigirnos al apartado de drivers y dar click derecho y luego en new Driver
+5.oprimir en el boton de add y buscar el driver y aceptar
+6.dar click derecho sobre el driver insertado que tiene como nombre"Microsift sql server 2005" y seleccionar connect using
+7.llenamos los campos con el puerto 1433, si no tenemos configurado el puerto de sql procedemos a configurarlo
+8.para configurar el puerto tenemos que dirijirnos al archivo SQL SERVER CONFIGURATION MANAGER
+9.ir a la opcion sql srever network configuration-protocols for SQLEXPRESS2012
+10.dar click derecho sobre TCP/IP Y habilitarlo en enable
+11.volver a dar click derecho sobre TCP/IP y en propiedades, luego dirijirnos a la pestaña ipaddresses
+12.indicar en todos los campos de TCP Port el puerto 1433
+13.cerramos y abrimos el sql server 2012 loguiarnos,el server name es el que se indica en java en el campo host de la new connection wizard
+14.una vez adentro de sql, nos dirigimos a dar click derecho sobre nuestro servidor y luego propiedades
+15.nos dirigimos al apartado de Security y seleccionamos SQL SERVER AND WINDOWS AUTHENTICATION MODE y luego en ok
+16.volver a dar click derecho sobre el server en restar
+17. se nos abre una ventana de sql server y damos en yes
+18.una ves terminado, nos conectamos nuevamente en sql y listo
+19.ya podemos conectarnos ya que los campos del wizard de configuracion de java los tenemos 
+
+20. en el wizard de java cuando el test es succes, luego nos aparece un combobox para seleccionar el esquema
+seleccionamos dbo, ya que es el esquema por que sql server maneja un concepto llamado esquemas
+el esquema por defecto para toda tabla creada es dbo, al menos que tu especifiquemos otra cosa, es dbo
+osea las tablas tienen el nombre siempre esquema.tabla
+en el caso de nosotros seria dbo.NombreTabla
+ya que no hemos cambiado el esquema por defecto
