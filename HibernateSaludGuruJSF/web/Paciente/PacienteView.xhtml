@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <h:form>
+            <h:dataTable value="${pacienteBeans.pacienteModelo}" var="p" border="1">
+                <h:column>
+                    <f:facet name="header">IdPaciente</f:facet>
+                        ${p.idPaciente}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Nombre</f:facet>
+                        ${p.nombrePaciente}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Edad</f:facet>
+                        ${p.edadPaciente}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Seguro</f:facet>
+                        ${p.seguro}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Opcion</f:facet>
+                    <h:commandLink value="Actualizar" action="AsignarPaciente" actionListener="${pacienteBeans.buscar}"><!--llamamos al metodo buscar para que se carguen los valores de los elementos del beans, y de esta manera ir a la otra pagina y nos salgan los datos a actualizar-->
+                        <f:attribute name="mid" value="${p.idPaciente}"/>
+                    </h:commandLink>
+                    <h:commandLink value="  Eliminar" action="PacienteView" actionListener="${pacienteBeans.eliminar}">
+                        <f:attribute name="mid" value="${p.idPaciente}"/>
+                    </h:commandLink>
+                </h:column>
+            </h:dataTable>
+            <br/>
+            <h:commandLink value="Ingresar Paciente" action="AsignarPaciente"/>
+            <br/>
+            <h:outputLabel value="${pacienteBeans.msj}"/>
+            <h:commandLink value="Inicio" action="/index"/>
+        </h:form>
+    </body>
+</html>

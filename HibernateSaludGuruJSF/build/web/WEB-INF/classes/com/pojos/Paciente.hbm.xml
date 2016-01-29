@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05-abr-2015 14:44:08 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.pojos.Paciente" table="paciente" catalog="saludguru" optimistic-lock="version">
+        <id name="idPaciente" type="int">
+            <column name="idPaciente" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombrePaciente" type="string">
+            <column name="nombrePaciente" length="30" />
+        </property>
+        <property name="edadPaciente" type="java.lang.Integer">
+            <column name="edadPaciente" />
+        </property>
+        <property name="seguro" type="string">
+            <column name="seguro" length="20" />
+        </property>
+        <set name="citases" table="citas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idPaciente" not-null="true" />
+            </key>
+            <one-to-many class="com.pojos.Citas" />
+        </set>
+    </class>
+</hibernate-mapping>

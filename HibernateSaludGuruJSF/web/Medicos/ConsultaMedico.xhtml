@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <h:form>
+            Medico:<h:selectOneMenu value="${citasBeans.idMedico}" onchange="submit()">
+                <f:selectItems value="${medicosBeans.itemsM}"></f:selectItems>
+            </h:selectOneMenu><br/>
+            Fecha:<h:inputText value="${citasBeans.fecha}"/>yyyy-mm-dd<br/>
+            <h:dataTable value="${citasBeans.medicoConsulta}" var="c" border="1">
+                <h:column>
+                    <f:facet name="header">IdCita</f:facet>
+                        ${c.idCita}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Fecha</f:facet>
+                        ${c.horaCita}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Paciente</f:facet>
+                        ${c.paciente.nombrePaciente}<!--Para acceder al nombre de paciente se hace de esta forma ya que estamos trabajando mediante las clases y no sobre las tablas de las bd esa es la ventaja de mappear las tablas-->
+                </h:column>
+            </h:dataTable>
+            <br/>
+            <h:commandLink value="Medicos" action="MedicoView"/><br/>
+        </h:form>
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:dataTable value="${citasBeans.citasModelo}" var="c" border="1">
+                <h:column>
+                    <f:facet name="header">IdCita</f:facet>
+                        ${c.idCita}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Medico</f:facet>
+                        ${c.medico.nombreMedico}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Paciente</f:facet>
+                        ${c.paciente.nombrePaciente}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Fecha</f:facet>
+                        ${c.horaCita}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Opcion</f:facet>
+                    <h:commandLink value="Actualizar" action="AsignarCita" actionListener="${citasBeans.buscar}">
+                        <f:attribute name="mid" value="${c.idCita}"/>
+                    </h:commandLink>
+                    <h:commandLink value=" Eliminar" action="CitasView" actionListener="${citasBeans.eliminar}">
+                        <f:attribute name="mid" value="${c.idCita}"/>
+                    </h:commandLink>
+                </h:column>
+            </h:dataTable>
+            <br/>
+            <h:commandLink value="Asignar Cita" action="AsignarCita"/><br/>
+            <h:outputLabel value="${citasBeans.msj}"/>
+            <h:commandLink value="Inicio" action="/index"/><br/>
+        </h:form>
+    </h:body>
+</html>
+
