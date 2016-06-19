@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+ <script src="jquery-2.1.4.js"></script>
+        <script>
+            //482786450609-8e69ljriu1qinipbnm5o8d4igqqvl0ee.apps.googleusercontent.com
+            //-9_VASOIZXeuoSuN-5oWX-Dd
+            var rootURL = "http://localhost:8280/Jax-rsHibernateAjax/resources/paciente/ConsultaAll";
+
+            $(document).ready(function () {
+                $("#consultar").click(function () {
+                    console.log('findAll');
+                    $.ajax({
+                        type: 'GET',
+                        url: rootURL,
+                        //url: "http://myprojectprueba-1264.appspot.com/servicio1.html?",
+                        contentType: "application/json; chartset=utf-8",
+                        dataType: "json", // data type of response
+                        success: renderList2
+                    });
+                    return false;
+
+                });
+                $("#consultar2").click(function () {
+                    console.log('findAll');
+                    $.ajax({
+                        type: 'GET',
+                        url: "http://localhost:8280/Jax-rsHibernateAjax/resources/paciente/ConsultaPaciente"+ "/" + $("#ide").val(),
+                        contentType: "application/json; chartset=utf-8",
+                        dataType: "json", // data type of response
+                        success: renderList2
+                    });
+                    return false;
+
+                });
+                $("#insertar").click(function () {//indicamos que el boton va a responder al evento click del boton, es decir descecadenara la accion cuando pulsemos click en el boton, modificaremos el texto del boton cuando se haga click
+                    $.ajax({
+                        type: 'POST',
+                        url: "http://localhost:8280/Jax-rsHibernateAjax/resources/paciente/Insertar",
+                        contentType: "application/json; chartset=utf-8",
+                        dataType: "json", // data type of response
+                        data: formToJSON(),
+                        success: function (data) {
+                            alert("Registro Insertadooop")
+                        },
+                        error: function (textStatus) {
+                            alert('error Insertarh: ' + textStatus);
+                        }
+                    });
+                    return false;
+                });
+                
+                function formToJSON() {
+                    return JSON.stringify({//JSON.stringify convierte un valor a notación JSON
+                        "idPaciente": $('#ide').val(),
+                        "nombrePaciente": $('#nombre').val(),
+                        "edadPaciente": $('#edad').val(),
+                        "seguro": $('#seguro').val()  
+                    });
+                }
+                
+                function renderList2(data) {//segunda forma para consultar
+                    $('#miTable').text("");
+                    var list = data;
+                    for (i = 0; i < list.length; i++) {
+                        $('#miTable').append('<tr><td>' + list[i].nombrePaciente + '</td></tr>');
+                    }
+                }
+            });
+             </script>
+</head>
+<body>
+<h1>Web</h1>
+<form>
+    <label>Id:</label> <input type="text" id="ide" name="ide"/><br/>
+    <label>Nombre:</label> <input type="text" id="nombre" name="nombre"/><br/>
+    <label>Edad:</label> <input type="text" id="edad" name="edad"/><br/>
+    <label>Seguro:</label> <input type="text" id="seguro" name="seguro"/><br/>
+	<input type="submit" value="consultar" id="consultar"/>
+	<input type="submit" value="consultarPorID" id="consultar2"/>
+	<input type="submit" value="Insertar" id="insertar"/>
+</form>
+<table id="miTable" border="1"></table>
+</body>
+</html>

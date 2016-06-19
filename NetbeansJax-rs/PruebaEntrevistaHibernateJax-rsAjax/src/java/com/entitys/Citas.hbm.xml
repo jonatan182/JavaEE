@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18-jun-2016 11:01:19 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.entitys.Citas" table="citas" catalog="saludguru" optimistic-lock="version">
+        <id name="idCita" type="int">
+            <column name="idCita" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="medico" class="com.entitys.Medico" fetch="select">
+            <column name="idMedico" not-null="true" />
+        </many-to-one>
+        <many-to-one name="paciente" class="com.entitys.Paciente" fetch="select">
+            <column name="idPaciente" not-null="true" />
+        </many-to-one>
+        <property name="horaCita" type="timestamp">
+            <column name="horaCita" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

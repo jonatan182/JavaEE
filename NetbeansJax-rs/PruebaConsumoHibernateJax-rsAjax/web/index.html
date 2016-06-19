@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="jquery-2.1.4.js"></script>
+        <script>
+            //482786450609-8e69ljriu1qinipbnm5o8d4igqqvl0ee.apps.googleusercontent.com
+            //-9_VASOIZXeuoSuN-5oWX-Dd
+            var rootURL = "http://localhost:8089/PruebaEntrevistaHibernateJax-rsAjax/resources/paciente/ConsultaAll";
+
+            $(document).ready(function () {
+
+                $("#enviar").click(function () {
+                    console.log('findAll');
+                    $.ajax({
+                        type: 'GET',
+                        url: rootURL,
+                        //url: "http://myprojectprueba-1264.appspot.com/servicio1.html?",
+                        contentType: "application/json; chartset=utf-8",
+                        dataType: "json", // data type of response
+                        success: renderList2
+                    });
+                    return false;
+
+                });
+                $("#Consultar").click(function () {
+                    console.log('findAll');
+                    $.ajax({
+                        type: 'GET',
+                        url: "http://localhost:8089/PruebaEntrevistaHibernateJax-rsAjax/resources/paciente/ConsultaPaciente" + "/" + $("#ide").val(),
+                        //url: "http://myprojectprueba-1264.appspot.com/servicio1.html?",
+                        contentType: "application/json; chartset=utf-8",
+                        dataType: "json", // data type of response
+                        success: renderList2
+                    });
+                    return false;
+
+                });
+
+                $("#eliminar").click(function () {//indicamos que el boton va a responder al evento click del boton, es decir descecadenara la accion cuando pulsemos click en el boton, modificaremos el texto del boton cuando se haga click
+                    alert("aden");
+                    $.ajax({
+                        type: 'DELETE',
+                        //url: "http://localhost:8089/jax-rsDB/webresources/services.paciente/del/7",
+                        url: "http://localhost:8089/PruebaEntrevistaHibernateJax-rsAjax/resources/paciente"+ "/" + $("#ide").val(),
+                        contentType: "application/json; chartset=utf-8",
+                        dataType: "json", // data type of response
+                        success: function (data) {
+                            alert("Registro Eliminado");
+                        }
+                    });
+                    return false;
+                });
+                $("#insertar").click(function () {//indicamos que el boton va a responder al evento click del boton, es decir descecadenara la accion cuando pulsemos click en el boton, modificaremos el texto del boton cuando se haga click
+                    alert("adenIIII");
+                    $.ajax({
+                        type: 'POST',
+                        url: "http://localhost:8089/PruebaEntrevistaHibernateJax-rsAjax/resources/paciente/Insertar",
+                        contentType: "application/json; chartset=utf-8",
+                        dataType: "json", // data type of response
+                        data: formToJSON(),
+                        success: function (data) {
+                            alert("Registro Insertadooop")
+                        },
+                        error: function (textStatus) {
+                            alert('error Insertarh: ' + textStatus);
+                        }
+                    });
+                    return false;
+                });
+                $("#actualizar").click(function () {
+                    $.ajax({
+                        type: 'PUT',
+                        contentType: 'application/json',
+                        url: "http://localhost:8089/PruebaEntrevistaHibernateJax-rsAjax/resources/paciente"+ "/" + $("#ide").val(),
+                        dataType: "json",
+                        data: formToJSON(), //para recuperar la informacion del formulario y enviarla
+                        success: function (data) {
+                            alert("Registro Actualizado");
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert('Error Al  Actualizar: ' + textStatus);
+                        }
+                    });
+                    return false;
+                });
+
+
+
+                function formToJSON() {
+                    return JSON.stringify({//JSON.stringify convierte un valor a notación JSON
+                        "idPaciente": $('#ide').val(),
+                        "nombrePaciente": $('#nombre').val(),
+                        "edadPaciente": $("#edad").val,
+                        "seguro": $("#seguro").val
+                    });
+                }
+
+                function renderList(data) {//primera forma para consultar
+                    console.log('findAll');
+                    // JAX-RS serializes an empty list as null, and a 'collection of one' as an object (not an 'array of one')
+                    var list = data == null ? [] : (data instanceof Array ? data : [data]);
+                    $.each(list, function (index, wine) {
+                        $('#wineList').append('<li><a href="#" data-identity="' + wine.nombre + '">' + wine.nombre + '</a></li>');
+                    });
+                }
+                function renderList2(data) {//segunda forma para consultar
+                    $('#miTable').text("");
+                    var list = data;
+                    for (i = 0; i < list.length; i++) {
+                        $('#miTable').append('<tr><td>' + list[i].nombrePaciente + '</td></tr>');
+                    }
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <div>TODO write content</div>
+        <form action="resources/persona" id="form1">
+            <!--<input type="text" id="id"/>-->
+            <input type="submit" value="Consulta" id="enviar">
+            <hr/>
+            <a href="resources/persona/persona3">link</a>
+            <table id="miTable" border="1"></table>
+            ide:<input type="text" id="ide" name="ide"/><br/>
+            Nombre: <input type="text" id="nombre" name="nombre"/><br/>
+            Edad: <input type="text" id="edad"/><br/>
+            Seguro: <input type="text" id="seguro"/><br/>
+            <input type="submit" value="ConsultaPaciente" id="Consultar">
+            <input type="submit" value="Eliminar" id="eliminar"/>
+            <input type="submit" value="Insertar" id="insertar"/>
+            <input type="submit" value="Actualizar" id="actualizar"/>
+        </form>
+        <div id="wineList">
+
+        </div>
+    </body>
+</html>
