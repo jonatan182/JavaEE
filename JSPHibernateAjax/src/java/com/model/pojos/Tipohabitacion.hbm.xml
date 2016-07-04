@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12-jun-2016 20:44:30 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.model.pojos.Tipohabitacion" table="tipohabitacion" catalog="hotel" optimistic-lock="version">
+        <id name="idTipo" type="int">
+            <column name="idTipo" />
+            <generator class="assigned" />
+        </id>
+        <property name="tipo" type="string">
+            <column name="Tipo" length="20" />
+        </property>
+        <property name="precio" type="java.lang.Integer">
+            <column name="precio" />
+        </property>
+        <set name="habitacions" table="habitacion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TipoHabitacion" />
+            </key>
+            <one-to-many class="com.model.pojos.Habitacion" />
+        </set>
+        <set name="reservacions" table="reservacion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idTipoHabitacion" />
+            </key>
+            <one-to-many class="com.model.pojos.Reservacion" />
+        </set>
+    </class>
+</hibernate-mapping>

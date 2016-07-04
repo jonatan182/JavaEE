@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12-jun-2016 20:44:30 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.model.pojos.Reservacion" table="reservacion" catalog="hotel" optimistic-lock="version">
+        <id name="idReservacion" type="int">
+            <column name="idReservacion" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="cliente" class="com.model.pojos.Cliente" fetch="select">
+            <column name="Cliente" />
+        </many-to-one>
+        <many-to-one name="habitacion" class="com.model.pojos.Habitacion" fetch="select">
+            <column name="NumHabitacion1" />
+        </many-to-one>
+        <many-to-one name="tipohabitacion" class="com.model.pojos.Tipohabitacion" fetch="select">
+            <column name="idTipoHabitacion" />
+        </many-to-one>
+        <property name="fechaComienzo" type="string">
+            <column name="fechaComienzo" length="50" />
+        </property>
+        <property name="numeroDias" type="java.lang.Integer">
+            <column name="numeroDias" />
+        </property>
+    </class>
+</hibernate-mapping>
