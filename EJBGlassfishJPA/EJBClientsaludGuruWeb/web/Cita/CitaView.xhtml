@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:dataTable value="${citaBean.citaModel}" border="2" var="c">
+                <h:column>
+                    <f:facet name="header">IDCita</f:facet>
+                        ${c.getIdcita()}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Medico</f:facet>
+                        ${c.getMedico().getNombremedico()}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Paciente</f:facet>
+                        ${c.getPaciente().getNombrepaciente()}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Fecha</f:facet>
+                        ${c.getFecha()}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Hora</f:facet>
+                        ${c.getHora()}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Opcion</f:facet>
+                    <h:commandLink action="CitaView" actionListener="${citaBean.eliminar}" value="Eliminar ">
+                        <f:attribute name="miden" value="${c.getIdcita()}"/>
+                    </h:commandLink>
+                    <h:commandLink action="CitaView" actionListener="${citaBean.buscar}" value="Actualizar">
+                        <!--<f:attribute name="miden" value="${c.getMedico().getIdentificacionmedico()}"></f:attribute>
+                        <f:attribute name="midenp" value="${c.getPaciente().getIdentificacionpaciente()}"></f:attribute>
+                        <f:attribute name="fec" value="${c.getFecha()}"></f:attribute>-->
+                        <f:attribute name="miden" value="${c.getIdcita()}"></f:attribute>
+                    </h:commandLink>
+                </h:column>
+            </h:dataTable>
+            <h:panelGrid columns="3">
+                <h:outputLabel for="idC" value="ID: "/>
+                <h:inputText value="${citaBean.citaPojo.idcita}" id="idC"/>
+                <h:message for="idC"/>
+                <h:outputLabel for="medico" value="Medico: "/>
+                <h:selectOneMenu value="${citaBean.citaPojo.medico.identificacionmedico}" id="medico">
+                    <f:selectItems value="${medicoBean.itemMedico}"/>
+                </h:selectOneMenu>
+                <h:message for="medico"/>
+                <h:outputLabel for="paciente" value="Paciente: "/>
+                <h:selectOneMenu value="${citaBean.citaPojo.paciente.identificacionpaciente}" id="paciente">
+                    <f:selectItems value="${pacienteBean.itemP}"/>
+                </h:selectOneMenu>
+                <h:message for="paciente"/>
+                <h:outputLabel for="fecha" value="Fecha: "/>
+                <h:inputText value="${citaBean.citaPojo.fecha}" id="fecha"/>
+                <h:message for="fecha"/>
+                <h:outputLabel for="hora" value="hora: "/>
+                <h:inputText value="${citaBean.citaPojo.hora}" id="hora"/>
+                <h:message for="hora"/>
+            </h:panelGrid>
+            <h:commandButton actionListener="${citaBean.insertar()}" value="Asignar"/>
+            <h:commandButton actionListener="${citaBean.nuevo()}" value="Nuevo"/>
+            <h:outputLabel value="${citaBean.msg}"/>
+            <h:inputHidden value="${citaBean.estado}"/>
+        </h:form>
+    </h:body>
+</html>
+
