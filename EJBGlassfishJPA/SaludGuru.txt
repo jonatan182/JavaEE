@@ -1,0 +1,23 @@
+create table paciente(
+idpaciente SERIAL,
+identificacionpaciente INTEGER PRIMARY KEY,
+nombrepaciente varchar(50),
+apellidopaciente varchar(50),
+edad integer
+);
+create table medico(
+idmedico SERIAL,
+identificacionmedico INTEGER PRIMARY KEY,
+nombremedico varchar(50),
+apellidomedico varchar(50),
+edadmedico integer
+);
+create table cita(
+idcita integer not null primary key,
+fecha date,
+hora time,
+identificacionmedico integer not null,
+identificacionpaciente integer not null,
+foreign key (identificacionmedico) references medico(identificacionmedico),
+foreign key (identificacionpaciente) references paciente(identificacionpaciente)
+);
